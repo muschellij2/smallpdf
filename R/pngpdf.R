@@ -175,7 +175,7 @@ view = function(filename, viewer= NULL, bg=TRUE){
 #' @keywords viewer
 #' @return NULL, with deviced opened
 open_dev = function(filename, type= "cairo", ...){
-  get.ext = gsub("(.*)\\.(.*)$", "\\2", file)
+  get.ext = gsub("(.*)\\.(.*)$", "\\2", filename)
   stopifnot( get.ext %in% c("pdf", "bmp", "svg", "png", 
     "jpg", "jpeg", "tiff"))
 
