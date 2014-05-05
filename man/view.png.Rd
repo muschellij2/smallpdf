@@ -2,7 +2,7 @@
 \alias{view.png}
 \title{View png in R}
 \usage{
-view.png(filename, viewer = "display", bg = TRUE)
+view.png(filename, viewer = "display", bg = FALSE)
 }
 \arguments{
   \item{filename}{filename of png}

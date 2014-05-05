@@ -104,7 +104,7 @@ smallpdf.off = function(pdfname, mypattern, dev, copts = ""){
 #' @return Result from system
 view.pdf = function(filename, 
   viewer=getOption("pdfviewer"), 
-  bg = TRUE){
+  bg = FALSE){
     stopifnot(length(filename) == 1)
   if (is.null(viewer)){
     viewer = getOption("pdfviewer")
@@ -126,7 +126,7 @@ view.pdf = function(filename,
 #' @return Result from system
 view.png = function(filename, 
   viewer= "display", 
-  bg = TRUE){
+  bg = FALSE){
   stopifnot(length(filename) == 1)
   if (bg) {
     filename = paste0(filename, " &")

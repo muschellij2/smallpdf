@@ -2,7 +2,7 @@
 \alias{view.pdf}
 \title{View pdf from R}
 \usage{
-view.pdf(filename, viewer = getOption("pdfviewer"), bg = TRUE)
+view.pdf(filename, viewer = getOption("pdfviewer"), bg = FALSE)
 }
 \arguments{
   \item{filename}{filename of pdf}
