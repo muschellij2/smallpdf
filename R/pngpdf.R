@@ -98,11 +98,9 @@ smallpdf.off = function(pdfname, mypattern, dev,
                         extra.opts = "-quality 100", 
                         outdir = tempdir(), clean = FALSE){
   dev.off()
-#   aniopts = ani.options()
   gpat = paste0(mypattern, ".*\\.", dev)  
   pngs = list.files(path=outdir, pattern=gpat, full.names=TRUE)
   mystr = paste(pngs, collapse=" ", sep="")
-  ani.options(autobrowse=FALSE)
 #   im.convert(pngs, output = pdfname, convert="convert", 
 #              extra.opts = extra.opts, 
 #              clean = clean)
