@@ -7,12 +7,13 @@ view.png(filename, viewer = "display", bg = FALSE)
 \arguments{
   \item{filename}{filename of png}
 
-  \item{viewer}{name of viewer in PATH}
+  \item{viewer}{name of viewer in PATH.  Defaults to
+  "display" for ImageMagick}
 
   \item{bg}{run as background process}
 }
 \value{
-Result from system
+Result from \code{\link{system}} command
 }
 \description{
 View a png in external viewer from R

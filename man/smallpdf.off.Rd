@@ -1,8 +1,10 @@
 \name{smallpdf.off}
+\alias{pngpdf.off}
 \alias{smallpdf.off}
 \title{Close smallpdf device}
 \usage{
-smallpdf.off(pdfname, mypattern, dev, copts = "")
+smallpdf.off(pdfname, mypattern, dev, extra.opts = "-quality 100",
+  outdir = tempdir(), clean = FALSE)
 }
 \arguments{
   \item{pdfname}{filename of pdf to be created}
@@ -13,10 +15,15 @@ smallpdf.off(pdfname, mypattern, dev, copts = "")
   \item{dev}{device used to open (from
   \code{\link{smallpdf}})}
 
-  \item{copts}{Additional options sent to convert}
+  \item{extra.opts}{Additional options sent to convert}
+
+  \item{outdir}{Directory of intermediate bitmap files
+  (defaults to tempdir())}
+
+  \item{clean}{Delete temporary bitmap files or not?}
 }
 \value{
-Result from \code{\link{system}} command for convert
+The command for the conversion
 }
 \description{
 Closes smallpdf device and converts the files into.  This
@@ -33,7 +40,6 @@ fname = file.path(tempdir(), "smallpdf.pdf")
 smallpdf.off(pdfname = fname, mypattern=x$mypattern, dev=x$dev)
 print(file.info(fname)$size)
 # view.pdf(fname)
-\dontrun{
 fname2 = file.path(tempdir(), "normalpdf.pdf")
 pdf(fname2)
 plot(dat[,1], dat[,2])
@@ -41,7 +47,8 @@ plot(dat[,3], dat[,4])
 dev.off()
 file.info(fname2)$size
 print(file.info(fname2)$size / file.info(fname)$size)
-# [1] 0.01808703
+\dontrun{
+## better for large plots
 x = smallpdf(dev="jpeg")
 dat = matrix(rnorm(1e6*4), ncol=4)
 plot(dat[,1], dat[,2])

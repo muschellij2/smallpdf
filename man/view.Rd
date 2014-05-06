@@ -2,7 +2,7 @@
 \alias{view}
 \title{General viewer for plots}
 \usage{
-view(filename, viewer = NULL, bg = TRUE)
+view(filename, viewer = NULL, bg = FALSE)
 }
 \arguments{
   \item{filename}{file to be opened}
@@ -13,10 +13,12 @@ view(filename, viewer = NULL, bg = TRUE)
   \item{bg}{run as background process}
 }
 \value{
-Result from system
+Result from system command
 }
 \description{
-Views plots from devices or pdfs
+Views plots from devices or pdfs.  This function will
+extract the extension from a filename and then uses the
+viewer specified, or a default option to view the image
 }
 \keyword{viewer}
 

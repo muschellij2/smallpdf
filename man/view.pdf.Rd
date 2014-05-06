@@ -7,12 +7,13 @@ view.pdf(filename, viewer = getOption("pdfviewer"), bg = FALSE)
 \arguments{
   \item{filename}{filename of pdf}
 
-  \item{viewer}{<what param does>}
+  \item{viewer}{Name for the system command for viewer.
+  Defaults to pdfviewer option}
 
   \item{bg}{run as background process}
 }
 \value{
-Result from system
+Result from \code{\link{system}} command
 }
 \description{
 View a pdf in an external viewer

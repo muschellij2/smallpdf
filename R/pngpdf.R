@@ -1,31 +1,37 @@
 #' @title Open smallpdf device
 #'
 #' @description Opens a smallpdf device
-#' @param dev Device to be used, implemented for most types.
+#' @param dev Device to be used, implemented for most types, 
+#' such as "png".
 #' @param mypattern pattern to create for temporary pngs.  Does not 
 #' need to be changed unless want to recover pngs for failed run.
-#' @param maxn Number of plots to be created (needed higher if over 99999)
-#' @param type character string of type of device (see \code{\link{png}})
-#' @param res The nominal resolution in ppi which will be recorded in the bitmap.
+#' @param maxn Number of plots to be created 
+#' (need to be raised if over 99999, but you may rethinkt that).
+#' @param type character string of type of device (see \code{\link{png}}),
+#' such as "cairo"
+#' @param res The nominal resolution in ppi which will be recorded in the 
+#' bitmap.
 #' @param width width of device (see \code{\link{png}})
 #' @param height height of device (see \code{\link{png}})
 #' @param units units of device (see \code{\link{png}})
+#' @param outdir Directory of intermediate bitmap files (defaults to
+#' tempdir()) 
 #' @param ... additional options sent to device
 #' @export
 #' @seealso qpdf,png
 #' @return List of pndfname and mypattern (so it can be passed into
 #' smallpdf.off()) and device
-#' @alias pngpdf
+#' @aliases pngpdf
 smallpdf = function(dev= "png", 
   mypattern= "MYTEMPPNG", maxn = 1e6, type= "cairo",  res=600,  
-  width = 7, height = 7, units = "in",...){
+  width = 7, height = 7, units = "in", outdir = tempdir(), ...){
   max.d = max(log10(maxn)-1, 5)
   fname = paste0(mypattern, "%0", max.d, "d.", dev)
   gpat = paste0(mypattern, ".*\\.", dev)
   ### remove existing trash files
-  takeout = list.files(path=tempdir(), pattern=gpat, full.names=TRUE)
+  takeout = list.files(path=outdir, pattern=gpat, full.names=TRUE)
   if (length(takeout) > 0) file.remove(takeout)
-  pngname = file.path(tempdir(), fname)
+  pngname = file.path(outdir, fname)
   
   stopifnot(dev %in% c("bmp", "jpeg", "png", "tiff", "svg"))
   do.call(dev, list(filename=pngname, type= type, 
@@ -43,11 +49,14 @@ smallpdf = function(dev= "png",
 #' @param mypattern regular expression pattern for device files 
 #' (from \code{\link{smallpdf}})
 #' @param dev device used to open (from \code{\link{smallpdf}})
-#' @param copts Additional options sent to convert
+#' @param extra.opts Additional options sent to convert
+#' @param outdir Directory of intermediate bitmap files (defaults to
+#' tempdir())
+#' @param clean Delete temporary bitmap files or not?
 #' @export
 #' @seealso dev.off
-#' @return Result from \code{\link{system}} command for convert
-#' @alias pngpdf.off
+#' @return The command for the conversion
+#' @aliases pngpdf.off
 #' @examples ## not good for small plots
 #' x = smallpdf(dev="jpeg")
 #' dat = matrix(rnorm(1e3*4), ncol=4)
@@ -57,7 +66,6 @@ smallpdf = function(dev= "png",
 #' smallpdf.off(pdfname = fname, mypattern=x$mypattern, dev=x$dev)
 #' print(file.info(fname)$size)
 #' # view.pdf(fname)
-#' \dontrun{ 
 #' fname2 = file.path(tempdir(), "normalpdf.pdf") 
 #' pdf(fname2)
 #' plot(dat[,1], dat[,2])
@@ -65,7 +73,8 @@ smallpdf = function(dev= "png",
 #' dev.off()
 #' file.info(fname2)$size
 #' print(file.info(fname2)$size / file.info(fname)$size)
-#' # [1] 0.01808703
+#' \dontrun{ 
+#' ## better for large plots
 #' x = smallpdf(dev="jpeg")
 #' dat = matrix(rnorm(1e6*4), ncol=4)
 #' plot(dat[,1], dat[,2])
@@ -85,23 +94,33 @@ smallpdf = function(dev= "png",
 #' file.info(fname2)$size / file.info(fname)$size 
 #' # [1] 4.087222
 #'}
-smallpdf.off = function(pdfname, mypattern, dev, copts = ""){
+smallpdf.off = function(pdfname, mypattern, dev, 
+                        extra.opts = "-quality 100", 
+                        outdir = tempdir(), clean = FALSE){
   dev.off()
+#   aniopts = ani.options()
   gpat = paste0(mypattern, ".*\\.", dev)  
-  pngs = list.files(path=tempdir(), pattern=gpat, full.names=TRUE)
+  pngs = list.files(path=outdir, pattern=gpat, full.names=TRUE)
   mystr = paste(pngs, collapse=" ", sep="")
-  system(sprintf("convert %s -quality 100 %s %s", mystr, pdfname, copts))
+  ani.options(autobrowse=FALSE)
+#   im.convert(pngs, output = pdfname, convert="convert", 
+#              extra.opts = extra.opts, 
+#              clean = clean)
+#   ani.options(aniopts)
+  system(sprintf("convert %s -quality 100 %s %s", mystr, 
+                 extra.opts, pdfname))
 }
 
 #' @title View pdf from R
 #'
 #' @description View a pdf in an external viewer
 #' @param filename filename of pdf
-#' @param viewer <what param does>
+#' @param viewer Name for the system command for viewer.  Defaults
+#' to pdfviewer option
 #' @param bg run as background process
 #' @export
 #' @keywords viewer
-#' @return Result from system
+#' @return Result from \code{\link{system}} command
 view.pdf = function(filename, 
   viewer=getOption("pdfviewer"), 
   bg = FALSE){
@@ -119,11 +138,12 @@ view.pdf = function(filename,
 #'
 #' @description View a png in external viewer from R
 #' @param filename filename of png 
-#' @param viewer name of viewer in PATH
+#' @param viewer name of viewer in PATH.  Defaults
+#' to "display" for ImageMagick
 #' @param bg run as background process
 #' @export
 #' @keywords viewer
-#' @return Result from system
+#' @return Result from \code{\link{system}} command
 view.png = function(filename, 
   viewer= "display", 
   bg = FALSE){
@@ -136,18 +156,20 @@ view.png = function(filename,
 
 #' @title General viewer for plots
 #'
-#' @description Views plots from devices or pdfs
+#' @description Views plots from devices or pdfs.  This function will
+#' extract the extension from a filename and then uses the viewer 
+#' specified, or a default option to view the image
 #' @param filename file to be opened
 #' @param viewer program to view plot, attempts to use getOption or 
 #' display to find it
 #' @param bg run as background process
+#' 
 #' @export
 #' @keywords viewer
-#' @return Result from system
-
-view = function(filename, viewer= NULL, bg=TRUE){
+#' @return Result from system command
+view = function(filename, viewer= NULL, bg=FALSE){
   stopifnot(length(filename) == 1)
-  get.ext = gsub("(.*)\\.(.*)$", "\\2", file)
+  get.ext = gsub("(.*)\\.(.*)$", "\\2", filename)
   stopifnot( get.ext %in% c("pdf", "bmp", "svg", "png", 
     "jpg", "jpeg", "tiff"))
   if (get.ext == "pdf") {
@@ -167,13 +189,33 @@ view = function(filename, viewer= NULL, bg=TRUE){
 
 #' @title Open a device from the filename extension
 #'
-#' @description Open a device from the filename extension
+#' @description Open a device from the filename extension. 
+#' This function allows you to simply open a device by using 
+#' the filename.  So that if you have .png as the extension it opens
+#' a png, etc.
 #' @param filename filename to open
-#' @param type Type of device to open 
+#' @param type Type of device to open, i.e. "cairo",
+#' (see \code{\link{png}})
 #' @param ... arguments to be passed to device
 #' @export
 #' @keywords viewer
 #' @return NULL, with deviced opened
+#' @examples
+#' fname = tempfile(fileext= ".png")
+#' open_dev(fname)
+#' plot(0, 0)
+#' dev.off()
+#' # view(fname)
+#' fname = tempfile(fileext= ".jpg")
+#' open_dev(fname, res=600, height=7, width=7, units="in")
+#' plot(0, 0)
+#' dev.off()
+#' # view(fname, viewer="open") 
+#' fname = tempfile(fileext= ".pdf")
+#' open_dev(fname,height=7, width=7)
+#' plot(0, 0)
+#' dev.off()
+#' # view(fname)  
 open_dev = function(filename, type= "cairo", ...){
   get.ext = gsub("(.*)\\.(.*)$", "\\2", filename)
   stopifnot( get.ext %in% c("pdf", "bmp", "svg", "png", 

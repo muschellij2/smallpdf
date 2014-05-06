@@ -1,6 +1,7 @@
 Package: smallpdf
 Type: Package
-Title: Creates pdfs that are smaller and rastered from pngs and other devices
+Title: Creates pdfs that are smaller and rastered from pngs and other devices.
+    Wrapper functions similar to im.convert in animation package
 Version: 1.0
 Date: 2014-04-29
 Author: John Muschelli

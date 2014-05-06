@@ -7,7 +7,8 @@ open_dev(filename, type = "cairo", ...)
 \arguments{
   \item{filename}{filename to open}
 
-  \item{type}{Type of device to open}
+  \item{type}{Type of device to open, i.e. "cairo", (see
+  \code{\link{png}})}
 
   \item{...}{arguments to be passed to device}
 }
@@ -15,7 +16,27 @@ open_dev(filename, type = "cairo", ...)
 NULL, with deviced opened
 }
 \description{
-Open a device from the filename extension
+Open a device from the filename extension. This function
+allows you to simply open a device by using the filename.
+So that if you have .png as the extension it opens a png,
+etc.
+}
+\examples{
+fname = tempfile(fileext= ".png")
+open_dev(fname)
+plot(0, 0)
+dev.off()
+# view(fname)
+fname = tempfile(fileext= ".jpg")
+open_dev(fname, res=600, height=7, width=7, units="in")
+plot(0, 0)
+dev.off()
+# view(fname, viewer="open")
+fname = tempfile(fileext= ".pdf")
+open_dev(fname,height=7, width=7)
+plot(0, 0)
+dev.off()
+# view(fname)
 }
 \keyword{viewer}
 

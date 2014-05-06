@@ -1,23 +1,25 @@
 \name{smallpdf}
+\alias{pngpdf}
 \alias{smallpdf}
 \title{Open smallpdf device}
 \usage{
 smallpdf(dev = "png", mypattern = "MYTEMPPNG", maxn = 1e+06,
-  type = "cairo", res = 600, width = 7, height = 7, units = "in", ...)
+  type = "cairo", res = 600, width = 7, height = 7, units = "in",
+  outdir = tempdir(), ...)
 }
 \arguments{
-  \item{dev}{Device to be used, implemented for most
-  types.}
+  \item{dev}{Device to be used, implemented for most types,
+  such as "png".}
 
   \item{mypattern}{pattern to create for temporary pngs.
   Does not need to be changed unless want to recover pngs
   for failed run.}
 
-  \item{maxn}{Number of plots to be created (needed higher
-  if over 99999)}
+  \item{maxn}{Number of plots to be created (need to be
+  raised if over 99999, but you may rethinkt that).}
 
   \item{type}{character string of type of device (see
-  \code{\link{png}})}
+  \code{\link{png}}), such as "cairo"}
 
   \item{res}{The nominal resolution in ppi which will be
   recorded in the bitmap.}
@@ -27,6 +29,9 @@ smallpdf(dev = "png", mypattern = "MYTEMPPNG", maxn = 1e+06,
   \item{height}{height of device (see \code{\link{png}})}
 
   \item{units}{units of device (see \code{\link{png}})}
+
+  \item{outdir}{Directory of intermediate bitmap files
+  (defaults to tempdir())}
 
   \item{...}{additional options sent to device}
 }
