@@ -9,3 +9,4 @@ Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: This uses ImageMagick to create multi-page PDFs that are smaller
     in size than using pdf devices
 License: GPL-2
+BugReports: https://github.com/muschellij2/smallpdf/issues
