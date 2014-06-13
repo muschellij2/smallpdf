@@ -57,7 +57,9 @@ smallpdf = function(dev= "png",
 #' @seealso dev.off
 #' @return The command for the conversion
 #' @aliases pngpdf.off
-#' @examples ## not good for small plots
+#' @examples 
+#' \dontrun{ 
+#' ## not good for small plots
 #' x = smallpdf(dev="jpeg")
 #' dat = matrix(rnorm(1e3*4), ncol=4)
 #' plot(dat[,1], dat[,2])
@@ -73,7 +75,7 @@ smallpdf = function(dev= "png",
 #' dev.off()
 #' file.info(fname2)$size
 #' print(file.info(fname2)$size / file.info(fname)$size)
-#' \dontrun{ 
+#'  
 #' ## better for large plots
 #' x = smallpdf(dev="jpeg")
 #' dat = matrix(rnorm(1e6*4), ncol=4)
@@ -98,15 +100,21 @@ smallpdf.off = function(pdfname, mypattern, dev,
                         extra.opts = "-quality 100", 
                         outdir = tempdir(), clean = FALSE){
   dev.off()
+#   aniopts = ani.options()
   gpat = paste0(mypattern, ".*\\.", dev)  
   pngs = list.files(path=outdir, pattern=gpat, full.names=TRUE)
   mystr = paste(pngs, collapse=" ", sep="")
+#   ani.options(autobrowse=FALSE)
 #   im.convert(pngs, output = pdfname, convert="convert", 
 #              extra.opts = extra.opts, 
-#              clean = clean)
+#              clean = clean, animation=FALSE)
 #   ani.options(aniopts)
-  system(sprintf("convert %s -quality 100 %s %s", mystr, 
+  res = system(sprintf("convert %s -quality 100 %s %s", mystr, 
                  extra.opts, pdfname))
+  if (res != 0){
+    stop("Error in Conversion to PDF!")
+  }
+  return(invisible(NULL))
 }
 
 #' @title View pdf from R
