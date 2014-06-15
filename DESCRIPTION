@@ -1,14 +1,14 @@
 Package: smallpdf
 Type: Package
-Title: Creates pdfs that are smaller and rastered from pngs and other devices
-    using ImageMagick.
+Title: Creates multi-page PDFs by creating a series of PNG/JPEG/BMP that are
+    small in size on the hard disk.
 Version: 1.0
 Date: 2014-04-29
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: This uses ImageMagick to create multi-page PDFs that are smaller
-    in size than using pdf devices for certain types of plots, e.g. using
-    graphics::image.  Wrapper functions similar to im.convert in animation
-    package.
+    in size than using PDF devices for certain types of plots, e.g. using
+    graphics::image, or when there are many points on a plot.  These wrapper
+    functions are similar to \code{im.convert} in the \code{animation} package.
 License: GPL-2
 BugReports: https://github.com/muschellij2/smallpdf/issues

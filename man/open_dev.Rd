@@ -19,8 +19,8 @@ NULL, with deviced opened
 \description{
 Open a device from the filename extension.
 This function allows you to simply open a device by using
-the filename.  So that if you have .png as the extension it opens
-a png, etc.
+the filename.  So that if you have .PNG as the extension it opens
+a PNG, etc.
 }
 \examples{
 fname = tempfile(fileext= ".png")

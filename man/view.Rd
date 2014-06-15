@@ -17,7 +17,7 @@ display to find it}
 Result from system command
 }
 \description{
-Views plots from devices or pdfs.  This function will
+Views plots from devices or PDFs.  This function will
 extract the extension from a filename and then uses the viewer
 specified, or a default option to view the image
 }

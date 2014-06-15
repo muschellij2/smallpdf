@@ -8,7 +8,7 @@ smallpdf.off(pdfname, mypattern, dev, extra.opts = "-quality 100",
   outdir = tempdir(), clean = FALSE)
 }
 \arguments{
-\item{pdfname}{filename of pdf to be created}
+\item{pdfname}{filename of PDF to be created}
 
 \item{mypattern}{regular expression pattern for device files
 (from \code{\link{smallpdf}})}

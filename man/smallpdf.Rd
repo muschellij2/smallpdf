@@ -10,10 +10,10 @@ smallpdf(dev = "png", mypattern = "MYTEMPPNG", maxn = 1e+06,
 }
 \arguments{
 \item{dev}{Device to be used, implemented for most types,
-such as "png".}
+such as \code{png}.}
 
-\item{mypattern}{pattern to create for temporary pngs.  Does not
-need to be changed unless want to recover pngs for failed run.}
+\item{mypattern}{pattern to create for temporary PNGs.  Does not
+need to be changed unless want to recover PNGs for failed run.}
 
 \item{maxn}{Number of plots to be created
 (need to be raised if over 99999, but you may rethinkt that).}

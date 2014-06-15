@@ -2,9 +2,9 @@
 #'
 #' @description Opens a smallpdf device
 #' @param dev Device to be used, implemented for most types, 
-#' such as "png".
-#' @param mypattern pattern to create for temporary pngs.  Does not 
-#' need to be changed unless want to recover pngs for failed run.
+#' such as \code{png}.
+#' @param mypattern pattern to create for temporary PNGs.  Does not 
+#' need to be changed unless want to recover PNGs for failed run.
 #' @param maxn Number of plots to be created 
 #' (need to be raised if over 99999, but you may rethinkt that).
 #' @param type character string of type of device (see \code{\link{png}}),
@@ -45,7 +45,7 @@ smallpdf = function(dev= "png",
 #' @description Closes smallpdf device and converts the files into.  This is only worthwhile
 #' when the pdf has a lot of information, such as when using \code{\link{image}}.  
 #' 
-#' @param pdfname filename of pdf to be created
+#' @param pdfname filename of PDF to be created
 #' @param mypattern regular expression pattern for device files 
 #' (from \code{\link{smallpdf}})
 #' @param dev device used to open (from \code{\link{smallpdf}})
@@ -117,12 +117,12 @@ smallpdf.off = function(pdfname, mypattern, dev,
   return(invisible(NULL))
 }
 
-#' @title View pdf from R
+#' @title View PDF from R
 #'
-#' @description View a pdf in an external viewer
-#' @param filename filename of pdf
+#' @description View a PDF in an external viewer
+#' @param filename filename of PDF
 #' @param viewer Name for the system command for viewer.  Defaults
-#' to pdfviewer option
+#' to \code{pdfviewer} option
 #' @param bg run as background process
 #' @export
 #' @keywords viewer
@@ -140,10 +140,10 @@ view.pdf = function(filename,
   system(sprintf("%s %s", viewer, filename))
 }
 
-#' @title View png in R
+#' @title View PNG in R
 #'
-#' @description View a png in external viewer from R
-#' @param filename filename of png 
+#' @description View a PNG in external viewer from R
+#' @param filename filename of PNG 
 #' @param viewer name of viewer in PATH.  Defaults
 #' to "display" for ImageMagick
 #' @param bg run as background process
@@ -162,7 +162,7 @@ view.png = function(filename,
 
 #' @title General viewer for plots
 #'
-#' @description Views plots from devices or pdfs.  This function will
+#' @description Views plots from devices or PDFs.  This function will
 #' extract the extension from a filename and then uses the viewer 
 #' specified, or a default option to view the image
 #' @param filename file to be opened
@@ -197,8 +197,8 @@ view = function(filename, viewer= NULL, bg=FALSE){
 #'
 #' @description Open a device from the filename extension. 
 #' This function allows you to simply open a device by using 
-#' the filename.  So that if you have .png as the extension it opens
-#' a png, etc.
+#' the filename.  So that if you have .PNG as the extension it opens
+#' a PNG, etc.
 #' @param filename filename to open
 #' @param type Type of device to open, i.e. "cairo",
 #' (see \code{\link{png}})
