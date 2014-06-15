@@ -1,7 +1,6 @@
 Package: smallpdf
 Type: Package
-Title: Creates multi-page PDFs by creating a series of PNG/JPEG/BMP that are
-    small in size on the hard disk.
+Title: Creates small-in-size multi-page PDFs by creating a series of PNG/JPEG/BMP that are then joined together.
 Version: 1.0
 Date: 2014-04-29
 Author: John Muschelli
