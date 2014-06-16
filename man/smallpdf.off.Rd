@@ -4,11 +4,16 @@
 \alias{smallpdf.off}
 \title{Close smallpdf device}
 \usage{
-smallpdf.off(pdfname, mypattern, dev, extra.opts = "-quality 100",
-  outdir = tempdir(), clean = FALSE)
+smallpdf.off(pdfname, pdfobj = NULL, mypattern, dev,
+  extra.opts = "-quality 100", outdir = tempdir(), clean = FALSE)
 }
 \arguments{
 \item{pdfname}{filename of PDF to be created}
+
+\item{pdfobj}{List with elements \code{mypattern} and
+\code{dev}, returned from \code{\link{smallpdf}}.  If this is not
+\code{NULL}, overrides the \code{mypattern} and
+\code{dev} options.}
 
 \item{mypattern}{regular expression pattern for device files
 (from \code{\link{smallpdf}})}

@@ -46,6 +46,10 @@ smallpdf = function(dev= "png",
 #' when the pdf has a lot of information, such as when using \code{\link{image}}.  
 #' 
 #' @param pdfname filename of PDF to be created
+#' @param pdfobj List with elements \code{mypattern} and 
+#' \code{dev}, returned from \code{\link{smallpdf}}.  If this is not 
+#' \code{NULL}, overrides the \code{mypattern} and 
+#' \code{dev} options.
 #' @param mypattern regular expression pattern for device files 
 #' (from \code{\link{smallpdf}})
 #' @param dev device used to open (from \code{\link{smallpdf}})
@@ -96,10 +100,15 @@ smallpdf = function(dev= "png",
 #' file.info(fname2)$size / file.info(fname)$size 
 #' # [1] 4.087222
 #'}
-smallpdf.off = function(pdfname, mypattern, dev, 
+smallpdf.off = function(pdfname, pdfobj = NULL, 
+                        mypattern, dev, 
                         extra.opts = "-quality 100", 
                         outdir = tempdir(), clean = FALSE){
   dev.off()
+  if (!is.null(pdfobj)){
+    mypattern = pdfobj$mypattern
+    dev = pdfobj$dev
+  }
 #   aniopts = ani.options()
   gpat = paste0(mypattern, ".*\\.", dev)  
   pngs = list.files(path=outdir, pattern=gpat, full.names=TRUE)
