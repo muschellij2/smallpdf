@@ -104,7 +104,11 @@ smallpdf.off = function(pdfname, pdfobj = NULL,
                         mypattern, dev, 
                         extra.opts = "-quality 100", 
                         outdir = tempdir(), clean = FALSE){
-  dev.off()
+  if (!is.null(dev.list())){
+    if (dev.cur() != 1){
+      dev.off()
+    }
+  }
   if (!is.null(pdfobj)){
     mypattern = pdfobj$mypattern
     dev = pdfobj$dev
