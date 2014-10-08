@@ -128,6 +128,9 @@ smallpdf.off = function(pdfname, pdfobj = NULL,
   if (res != 0){
     stop("Error in Conversion to PDF!")
   }
+  if (clean){
+    file.remove(pngs)
+  }
   return(invisible(NULL))
 }
 
