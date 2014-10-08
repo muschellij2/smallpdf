@@ -37,7 +37,7 @@ smallpdf = function(dev= "png",
   do.call(dev, list(filename=pngname, type= type, 
                     height=height, width=width, units = units, 
                     res=res, ...))
-  return(list(mypattern=mypattern, dev=dev))
+  return(list(mypattern=mypattern, dev=dev, outdir = outdir))
 }
 
 #' @title Close smallpdf device
@@ -103,7 +103,7 @@ smallpdf = function(dev= "png",
 smallpdf.off = function(pdfname, pdfobj = NULL, 
                         mypattern, dev, 
                         extra.opts = "-quality 100", 
-                        outdir = tempdir(), clean = FALSE){
+                        outdir, clean = FALSE){
   if (!is.null(dev.list())){
     if (dev.cur() != 1){
       dev.off()
@@ -112,6 +112,7 @@ smallpdf.off = function(pdfname, pdfobj = NULL,
   if (!is.null(pdfobj)){
     mypattern = pdfobj$mypattern
     dev = pdfobj$dev
+    outdir = pdfobj$outdir
   }
 #   aniopts = ani.options()
   gpat = paste0(mypattern, ".*\\.", dev)  
