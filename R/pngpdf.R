@@ -114,6 +114,9 @@ smallpdf.off = function(pdfname, pdfobj = NULL,
     dev = pdfobj$dev
     outdir = pdfobj$outdir
   }
+  if (file.exists(pdfname)){
+    file.remove(pdfname)
+  }
 #   aniopts = ani.options()
   gpat = paste0(mypattern, ".*\\.", dev)  
   pngs = list.files(path=outdir, pattern=gpat, full.names=TRUE)
