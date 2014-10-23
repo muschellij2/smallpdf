@@ -126,7 +126,7 @@ smallpdf.off = function(pdfname, pdfobj = NULL,
 #              extra.opts = extra.opts, 
 #              clean = clean, animation=FALSE)
 #   ani.options(aniopts)
-  res = system(sprintf("convert %s -quality 100 %s %s", mystr, 
+  res = system(sprintf("convert %s %s %s", mystr, 
                  extra.opts, pdfname))
   if (res != 0){
     stop("Error in Conversion to PDF!")
