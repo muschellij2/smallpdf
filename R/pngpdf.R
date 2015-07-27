@@ -6,7 +6,7 @@
 #' @param mypattern pattern to create for temporary PNGs.  Does not 
 #' need to be changed unless want to recover PNGs for failed run.
 #' @param maxn Number of plots to be created 
-#' (need to be raised if over 99999, but you may rethinkt that).
+#' (need to be raised if over 99999, but you may rethink that).
 #' @param type character string of type of device (see \code{\link{png}}),
 #' such as "cairo"
 #' @param res The nominal resolution in ppi which will be recorded in the 
